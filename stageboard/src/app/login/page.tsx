@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { supabaseClient } from "@/lib/supabase/client"
-import './login.css'
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -29,25 +29,31 @@ export default function LoginPage() {
   }
 
   return(
-    <main className="login-container">
-      <form onSubmit={handleLogin} className="login-form">
-        <h1 className="login-title">Login</h1>
-
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
+      <form
+        onSubmit={handleLogin}
+        className="flex flex-col gap-4 p-6 bg-gray-800 rounded-xl shadow-md w-80"
+      >
+        <h1 className="text-xl font-bold text-blue-600 text-center">Login</h1>
+    
         <input
           type="email"
           value={email}
           onChange={handleEmailChange}
           placeholder="Email"
-          className="login-input"
+          className="border border-gray-400 rounded-md p-2 text-white"
         />
-
-        <button type="submit" disabled={loading} className="login-button">
-            Send Magic Link
+    
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Send Magic Link
         </button>
+    
+        {message && <p className="text-white text-sm mt-2">{message}</p>}
       </form>
-
-      {message && <p className="login-message">{message}</p>}
-
     </main>
   ) 
 }
