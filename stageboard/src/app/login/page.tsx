@@ -13,7 +13,12 @@ export default function LoginPage() {
     event.preventDefault() 
     setLoading(true)
 
-    const result = await supabaseClient.auth.signInWithOtp({email})
+    const result = await supabaseClient.auth.signInWithOtp({
+      email: email,
+      options: {
+        emailRedirectTo: 'http://localhost:3000/test'
+      }
+    })
 
     if (result.error) {
         setMessage('Er is iets fout gegaan: ' + result.error.message)

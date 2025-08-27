@@ -1,6 +1,18 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js'
+import { cookies } from 'next/headers'
 
-const supabaseURL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-export const supabaseServer = createClient(supabaseURL, supabaseServiceKey);
+export async function supabaseServer() {
+  const cookieStore = cookies()
+  const cookieHeader = cookieStore ? cookieStore.toString() : ''
+
+  return createClient(supabaseUrl, supabaseAnonKey, {
+    global: {
+      headers: { cookie: cookieHeader },
+    },
+  })
+}
+
+
