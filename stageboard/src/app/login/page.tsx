@@ -16,7 +16,7 @@ export default function LoginPage() {
     const result = await supabaseClient.auth.signInWithOtp({
       email: email,
       options: {
-        emailRedirectTo: 'http://localhost:3000/test'
+        emailRedirectTo: 'http://localhost:3000/tasks'
       }
     })
 
