@@ -21,9 +21,9 @@ export default function LoginPage() {
     })
 
     if (result.error) {
-        setMessage('Er is iets fout gegaan: ' + result.error.message)
+        setMessage('Something went wrong: ' + result.error.message)
     } else {
-        setMessage("Bekijk uw email voor de login link")
+        setMessage("Check email for the login link")
     }
 
      setLoading(false)

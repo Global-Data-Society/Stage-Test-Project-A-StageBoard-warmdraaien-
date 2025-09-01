@@ -195,7 +195,7 @@ export default function TasksPage() {
         </article>
 
 
-        {tasks.length === 0 && <p>Geen tasks!</p>}
+        {tasks.length === 0 && <p>No tasks found!</p>}
 
         <ul className="space-y-2">
           {tasks.map(task => (

@@ -16,5 +16,5 @@ export default function LogoutPage() {
         logoutUser()
     }, [router])
 
-  return <p>Uit loggen...</p>
+  return <p>logging out...</p>
 }
