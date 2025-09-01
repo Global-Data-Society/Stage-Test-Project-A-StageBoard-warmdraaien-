@@ -126,7 +126,10 @@ export default function TasksPage() {
 
   async function toggleDone(taskId: string, currentState: boolean) {
     try {
-      const { error } = await supabaseClient.from("tasks").update({ is_done: !currentState }).eq("id", taskId);
+      const { error } = await supabaseClient
+      .from("tasks")
+      .update({ is_done: !currentState })
+      .eq("id", taskId);
 
       if (error) {
         setError(error.message);
