@@ -7,7 +7,7 @@ import { supabaseClient } from '@/lib/supabase/client'
 export default function LogoutPage() {
     const router = useRouter()
 
-    useEffect(function () {
+    useEffect(() => {
         async function logoutUser() {
             await supabaseClient.auth.signOut()
             router.push('/login')
