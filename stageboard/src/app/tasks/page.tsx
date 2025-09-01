@@ -18,7 +18,7 @@ export default function TasksPage() {
 
   const router = useRouter();
 
-  useEffect(function () {
+  useEffect(() => {
     async function fetchUser() {
       try {
         const response = await supabaseClient.auth.getUser();
@@ -39,7 +39,7 @@ export default function TasksPage() {
   }, [router]);
 
 
-  useEffect(function () {
+  useEffect(() => {
     async function fetchTasks() {
       if (!user) return;
 
