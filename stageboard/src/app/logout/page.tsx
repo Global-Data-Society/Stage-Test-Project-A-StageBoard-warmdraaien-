@@ -16,5 +16,9 @@ export default function LogoutPage() {
         logoutUser()
     }, [router])
 
-  return <p>logging out...</p>
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <p className="text-lg font-medium">logging out...</p>
+    </div> 
+  )
 }
