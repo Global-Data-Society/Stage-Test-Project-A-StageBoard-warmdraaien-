@@ -48,7 +48,7 @@ export default function TasksPage() {
   async function createTask(title: string) {
     const { data, error } = await supabaseClient
       .from("tasks")
-      .insert([{ title, user_id: user.id }])
+      .insert([{ title }])
       .select()
       .single();
 
