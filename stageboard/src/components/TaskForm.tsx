@@ -11,13 +11,13 @@ export default function TaskForm({ onCreate }: { onCreate: (title: string) => Pr
         await onCreate(input.value.trim());
         input.value = "";
       }}
-      className="flex gap-2 mb-4"
+      className="flex gap-2"
     >
       <input
         type="text"
         name="title"
         placeholder="New task..."
-        className="flex-1 border rounded p-2"
+        className="flex-1 border border-gray-400 rounded-md p-2 text-white bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <button
         type="submit"

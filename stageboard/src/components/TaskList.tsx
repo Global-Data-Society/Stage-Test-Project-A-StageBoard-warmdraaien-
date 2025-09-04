@@ -20,10 +20,10 @@ export default function TaskList({
   onDelete: (id: string) => void;
   onUpdate: (id: string, newTitle: string) => void;
 }) {
-  if (tasks.length === 0) return <p>No tasks found!</p>;
+  if (tasks.length === 0) return <p className="text-white text-center mt-4">No tasks found!</p>;
 
   return (
-    <ul className="space-y-2">
+    <ul className="flex flex-col gap-3 mt-4">
       {tasks.map((task) => (
         <TaskItem
           key={task.id}

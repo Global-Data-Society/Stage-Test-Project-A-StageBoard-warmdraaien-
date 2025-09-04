@@ -23,17 +23,17 @@ export default function TaskItem({
   const [editTitle, setEditTitle] = useState(task.title);
 
   return (
-    <li className="border p-2 rounded flex justify-between items-center">
-      <div className="flex items-center gap-2">
+    <li className="flex justify-between items-center p-3 rounded-md bg-gray-700 shadow-md">
+      <div className="flex items-center gap-3">
         <button
-          className={`w-6 h-6 rounded-full border-2 cursor-pointer ${
-            task.is_done
-              ? "bg-green-500 border-green-600"
-              : "bg-white border-gray-400"
-          }`}
+          className={`w-6 h-6 rounded-full border-2 flex-shrink-0 cursor-pointer transition-all duration-200 ease-in-out 
+            ${task.is_done 
+              ? "bg-green-500 border-green-600 scale-110" 
+              : "bg-gray-800 border-gray-500 hover:border-blue-400 hover:scale-110"
+            }`}
           onClick={() => onToggleDone(task.id, task.is_done)}
           aria-label="Toggle"
-        />
+        ></button>
         {isEditing ? (
           <form
             onSubmit={(event) => {
@@ -49,12 +49,12 @@ export default function TaskItem({
               className="border rounded p-1"
               aria-label="text_field"
             />
-            <button type="submit" className="px-2 py-1 bg-green-500 text-white rounded cursor-pointer">
+            <button type="submit" className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded-md cursor-pointer">
               Save
             </button>
             <button
               type="button"
-              className="px-2 py-1 bg-gray-400 text-white rounded cursor-pointer"
+              className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer"
               onClick={() => setIsEditing(false)}
             >
               Cancel
@@ -63,7 +63,7 @@ export default function TaskItem({
         ) : (
           <div>
             <span className={task.is_done ? "line-through" : ""}>{task.title}</span>
-            <span className="ml-2 text-gray-500 text-sm">
+            <span className="ml-2 text-gray-400 text-sm">
               {new Date(task.created_at).toLocaleString()}
             </span>
           </div>
@@ -72,13 +72,13 @@ export default function TaskItem({
       {!isEditing && (
         <div className="flex gap-2">
           <button
-            className="px-2 py-1 bg-yellow-500 text-white rounded cursor-pointer"
+            className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded-md cursor-pointer" 
             onClick={() => setIsEditing(true)}
           >
             Edit
           </button>
           <button
-            className="px-2 py-1 bg-red-500 text-white rounded cursor-pointer"
+            className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer"
             onClick={() => onDelete(task.id)}
           >
             Delete

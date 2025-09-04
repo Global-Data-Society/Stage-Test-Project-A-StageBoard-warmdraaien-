@@ -118,24 +118,27 @@ export default function TasksPage() {
 
 
   return (
-    <div className="p-6">
-      <header className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Tasks</h1>
-        <Link href="/logout">
-          <button className="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 cursor-pointer">
-            Logout
-          </button>
+    <main className="flex flex-col items-center min-h-screen bg-gray-900">
+      <header className="w-full bg-gray-800 shadow-md py-4 px-6 flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-blue-500">Tasks</h1>
+        <Link
+          href="/logout"
+          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md cursor-pointer"
+        >
+          Logout
         </Link>
       </header>
-      <main>
+
+      <div className="w-full max-w-[1200px] bg-gray-800 p-6 mt-10 rounded-xl shadow-md flex flex-col gap-4">
         <TaskForm onCreate={createTask} />
+
         <TaskList
           tasks={tasks}
           onToggleDone={toggleDone}
           onDelete={deleteTask}
           onUpdate={updateTask}
         />
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
