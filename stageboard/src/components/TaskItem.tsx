@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Button from "./Button";
 
 type Task = {
   id: string;
@@ -26,11 +27,12 @@ export default function TaskItem({
     <li className="flex justify-between items-center p-3 rounded-md bg-gray-700 shadow-md">
       <div className="flex items-center gap-3">
         <button
-          className={`w-6 h-6 rounded-full border-2 flex-shrink-0 cursor-pointer transition-all duration-200 ease-in-out 
+          className={`w-8 h-8 rounded-sm border-2 flex-shrink-0 cursor-pointer transition-all duration-200 ease-in-out hover:border-blue-400 border-gray-500
             ${task.is_done 
-              ? "bg-green-500 border-green-600 scale-110" 
-              : "bg-gray-800 border-gray-500 hover:border-blue-400 hover:scale-110"
-            }`}
+              ? "bg-green-500 hover:bg-green-800" 
+              : "bg-gray-800 hover:bg-gray-700"
+            }`
+          }
           onClick={() => onToggleDone(task.id, task.is_done)}
           aria-label="Toggle"
         ></button>
@@ -49,16 +51,8 @@ export default function TaskItem({
               className="border rounded p-1"
               aria-label="text_field"
             />
-            <button type="submit" className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded-md cursor-pointer">
-              Save
-            </button>
-            <button
-              type="button"
-              className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer"
-              onClick={() => setIsEditing(false)}
-            >
-              Cancel
-            </button>
+            <Button type="submit" variant="primary">Save</Button>
+            <Button type="button" variant="secondary" onClick={() => setIsEditing(false)}>Cancel</Button>
           </form>
         ) : (
           <div>
@@ -71,18 +65,8 @@ export default function TaskItem({
       </div>
       {!isEditing && (
         <div className="flex gap-2">
-          <button
-            className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded-md cursor-pointer" 
-            onClick={() => setIsEditing(true)}
-          >
-            Edit
-          </button>
-          <button
-            className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer"
-            onClick={() => onDelete(task.id)}
-          >
-            Delete
-          </button>
+          <Button variant="primary" onClick={() => setIsEditing(true)}>Edit</Button>
+          <Button variant="danger" onClick={() => onDelete(task.id)}>Delete</Button>
         </div>
       )}
     </li>

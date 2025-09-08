@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import { supabaseClient } from "@/lib/supabase/client"
+import Button from "@/components/Button"
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -52,14 +53,10 @@ export default function LoginPage() {
           placeholder="Email"
           className="border border-gray-600 rounded-md p-3 text-white bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
         />
-  
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-blue-500 hover:bg-blue-600 active:scale-95 transition text-white py-2 rounded-md shadow-md cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-        >
+        
+        <Button type="submit" variant="primary" disabled={loading}>
           {loading ? "Sending..." : "Send Magic Link"}
-        </button>
+        </Button>
   
         {message && (
           <p className="text-gray-300 text-sm text-center mt-2">{message}</p>

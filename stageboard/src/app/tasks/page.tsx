@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import TaskForm from "@/components/TaskForm";
 import TaskList from "@/components/TaskList";
+import Button from "@/components/Button";
 
 export default function TasksPage() {
   const [tasks, setTasks] = useState<any[]>([]);
@@ -78,18 +79,25 @@ export default function TasksPage() {
   }
 
   async function toggleDone(taskId: string, currentState: boolean) {
+    setTasks(
+      tasks.map((task) =>
+        task.id === taskId ? { ...task, is_done: !currentState } : task
+      )
+    );
+  
     const { error } = await supabaseClient
       .from("tasks")
       .update({ is_done: !currentState })
       .eq("id", taskId);
 
-    if (error) setError(error.message);
-    else
+    if (error) {
+      setError(error.message);
       setTasks(
         tasks.map((task) =>
-          task.id === taskId ? { ...task, is_done: !currentState } : task
+          task.id === taskId ? { ...task, is_done: currentState } : task
         )
       );
+    }
   }
 
   const loading = userLoading || tasksLoading;
@@ -121,11 +129,8 @@ export default function TasksPage() {
     <main className="flex flex-col items-center min-h-screen bg-gray-900">
       <header className="w-full bg-gray-800 shadow-md py-4 px-6 flex justify-between items-center">
         <h1 className="text-2xl font-bold text-blue-500">Tasks</h1>
-        <Link
-          href="/logout"
-          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md cursor-pointer"
-        >
-          Logout
+        <Link href="/logout">
+          <Button variant="danger">Logout</Button>
         </Link>
       </header>
 
