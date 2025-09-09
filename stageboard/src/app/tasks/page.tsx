@@ -105,34 +105,22 @@ export default function TasksPage() {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen gap-4">
-        <p className="text-lg font-medium text-red-500">Error: {error}</p>
-          <div className="flex flex-col gap-4">
-            <button
-              className="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 cursor-pointer"
-              onClick={async () => {
-                router.push("/logout");
-              }}
-            >
-              Back to Login
-            </button>
-            <button
-              className="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 cursor-pointer"
-              onClick={() => {
-                location.reload();
-              }}
-            >
-              Refresh
-            </button>
+      <main className="flex items-center justify-center h-screen bg-gray-900">
+        <section className="flex flex-col w-full max-w-lg bg-gray-800 p-6 mt-10 rounded-xl shadow-md gap-8">
+          <p className="text-lg text-center font-medium text-red-500">Error: {error}</p>
+          <div className="flex flex-col gap-4 items-center">
+            <Button variant="negative" onClick={() => {router.push("/logout");}}>Back to Login</Button>
+            <Button variant="positive" onClick={() => {location.reload();}}>Refresh</Button>
           </div>
-      </div>
+        </section>
+      </main>
     );
   }
 
   if (loading) return ( 
-    <div className="flex items-center justify-center h-screen">
+    <main className="flex items-center justify-center h-screen bg-gray-900">
       <p className="text-lg font-medium">Loading tasks...</p>
-    </div> 
+    </main> 
   ) 
 
 

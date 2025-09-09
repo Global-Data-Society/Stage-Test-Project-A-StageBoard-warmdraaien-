@@ -19,6 +19,8 @@ export default function TaskForm({ onCreate }: { onCreate: (title: string) => Pr
         name="title"
         placeholder="New task..."
         className="flex-1 border border-gray-600 rounded-md p-2 text-white bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        maxLength={120}
+        minLength={3}
       />
       <Button type="submit" variant="primary">Add</Button>
     </form>

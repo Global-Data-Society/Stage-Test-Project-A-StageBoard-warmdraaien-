@@ -3,7 +3,7 @@ import React from "react";
 
 type ButtonProps = {
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "danger";
+  variant?: "primary" | "secondary" | "danger" | "positive" | "negative";
   onClick?: () => void;
   type?: "button" | "submit";
   disabled?: boolean;
@@ -28,6 +28,12 @@ export default function Button({
   }
   if (variant === "danger") {
   style += " bg-gray-600 text-white border-gray-700 hover:bg-red-700 hover:border-red-800 active:scale-95 focus-visible:ring-red-400";
+  }
+  if (variant === "positive") {
+  style += " bg-green-600 text-gray-200 border-gray-700 hover:bg-green-800 hover:text-white hover:border-gray-800 active:scale-95 shadow-sm focus-visible:ring-gray-400";
+  }
+    if (variant === "negative") {
+  style += " bg-red-600 text-gray-200 border-gray-700 hover:bg-red-800 hover:text-white hover:border-gray-800 active:scale-95 shadow-sm focus-visible:ring-gray-400";
   }
     
   return (
