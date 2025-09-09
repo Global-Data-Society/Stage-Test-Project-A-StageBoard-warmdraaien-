@@ -7,6 +7,7 @@ import Link from "next/link";
 import TaskForm from "@/components/TaskForm";
 import TaskList from "@/components/TaskList";
 import Button from "@/components/Button";
+import ProgressBar from "@/components/TaskProgressBar";
 
 export default function TasksPage() {
   const [tasks, setTasks] = useState<any[]>([]);
@@ -106,14 +107,24 @@ export default function TasksPage() {
     return (
       <div className="flex flex-col items-center justify-center h-screen gap-4">
         <p className="text-lg font-medium text-red-500">Error: {error}</p>
-        <button
-          className="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 cursor-pointer"
-          onClick={async () => {
-            router.push("/logout");
-          }}
-        >
-          back to Login
-        </button>
+          <div className="flex flex-col gap-4">
+            <button
+              className="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 cursor-pointer"
+              onClick={async () => {
+                router.push("/logout");
+              }}
+            >
+              Back to Login
+            </button>
+            <button
+              className="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 cursor-pointer"
+              onClick={() => {
+                location.reload();
+              }}
+            >
+              Refresh
+            </button>
+          </div>
       </div>
     );
   }
@@ -133,17 +144,26 @@ export default function TasksPage() {
           <Button variant="danger">Logout</Button>
         </Link>
       </header>
-
-      <div className="w-full max-w-[1200px] bg-gray-800 p-6 mt-10 rounded-xl shadow-md flex flex-col gap-4">
-        <TaskForm onCreate={createTask} />
-
-        <TaskList
-          tasks={tasks}
-          onToggleDone={toggleDone}
-          onDelete={deleteTask}
-          onUpdate={updateTask}
-        />
-      </div>
+      <section className="w-full max-w-[1200px]">
+        <div className="w-full bg-gray-800 p-6 mt-10 rounded-xl shadow-md">
+          <TaskForm onCreate={createTask} />
+        </div>
+        <article className="flex flex-row gap-10">
+          <div className="sticky top-4 bg-gray-800 mt-10 p-4 rounded-xl shadow-md self-start">
+            <ProgressBar tasks={tasks} />
+          </div>
+          <div className="w-full mt-10">
+            <div className="bg-gray-800 p-6 rounded-xl shadow-md flex flex-col gap-4">
+              <TaskList
+                tasks={tasks}
+                onToggleDone={toggleDone}
+                onDelete={deleteTask}
+                onUpdate={updateTask}
+              />
+            </div>
+          </div>
+        </article>
+      </section>
     </main>
   );
 }

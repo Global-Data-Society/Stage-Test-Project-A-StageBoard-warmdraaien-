@@ -24,7 +24,7 @@ export default function TaskItem({
   const [editTitle, setEditTitle] = useState(task.title);
 
   return (
-    <li className="flex justify-between items-center p-3 rounded-md bg-gray-700 shadow-md">
+    <li className="group flex justify-between items-center p-3 rounded-md bg-gray-700 shadow-md">
       <div className="flex items-center gap-3">
         <button
           className={`w-8 h-8 rounded-sm border-2 flex-shrink-0 cursor-pointer transition-all duration-200 ease-in-out hover:border-blue-400 border-gray-500
@@ -55,16 +55,16 @@ export default function TaskItem({
             <Button type="button" variant="secondary" onClick={() => setIsEditing(false)}>Cancel</Button>
           </form>
         ) : (
-          <div>
+          <div className="flex flex-col">
             <span className={task.is_done ? "line-through" : ""}>{task.title}</span>
-            <span className="ml-2 text-gray-400 text-sm">
+            <span className="text-gray-400 text-sm">
               {new Date(task.created_at).toLocaleString()}
             </span>
           </div>
         )}
       </div>
       {!isEditing && (
-        <div className="flex gap-2">
+        <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           <Button variant="primary" onClick={() => setIsEditing(true)}>Edit</Button>
           <Button variant="danger" onClick={() => onDelete(task.id)}>Delete</Button>
         </div>

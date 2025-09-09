@@ -23,7 +23,7 @@ export default function TaskList({
   if (tasks.length === 0) return <p className="text-white text-center mt-4">No tasks found!</p>;
 
   return (
-    <ul className="flex flex-col gap-3 mt-4">
+    <ul className="flex flex-col gap-3">
       {tasks.map((task) => (
         <TaskItem
           key={task.id}
