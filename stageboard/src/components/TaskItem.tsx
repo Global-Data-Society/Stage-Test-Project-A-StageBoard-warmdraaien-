@@ -50,12 +50,14 @@ export default function TaskItem({
               onChange={(event) => setEditTitle(event.target.value)}
               className="border rounded p-1"
               aria-label="text_field"
+              maxLength={120}
+              minLength={3}
             />
             <Button type="submit" variant="primary">Save</Button>
             <Button type="button" variant="secondary" onClick={() => setIsEditing(false)}>Cancel</Button>
           </form>
         ) : (
-          <div className="flex flex-col">
+          <div className="flex flex-col cursor-pointer" onClick={() => setIsEditing(true)}>
             <span className={task.is_done ? "line-through" : ""}>{task.title}</span>
             <span className="text-gray-400 text-sm">
               {new Date(task.created_at).toLocaleString()}

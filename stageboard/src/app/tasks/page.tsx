@@ -8,14 +8,26 @@ import TaskForm from "@/components/TaskForm";
 import TaskList from "@/components/TaskList";
 import Button from "@/components/Button";
 import ProgressBar from "@/components/TaskProgressBar";
+import TaskSort from "@/components/TaskSort";
+
+type Task = {
+  id: string;
+  title: string;
+  is_done: boolean;
+  created_at: string;
+};
 
 export default function TasksPage() {
-  const [tasks, setTasks] = useState<any[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [user, setUser] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [userLoading, setUserLoading] = useState(true);
   const [tasksLoading, setTasksLoading] = useState(false);
   const router = useRouter();
+
+  const [dateSort, setDateSort] = useState<"oldest" | "newest">("oldest");
+  const [doneSort, setDoneSort] = useState<"all" | "done_first" | "not_done_first">("all");
+  const [displayTasks, setDisplayTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     async function fetchUser() {
@@ -46,6 +58,29 @@ export default function TasksPage() {
     }
     fetchTasks();
   }, [user]);
+
+useEffect(() => {
+  const sortedTasks = [...tasks].sort((a, b) => {
+
+    if (doneSort === "done_first") {
+      const diff = Number(b.is_done) - Number(a.is_done);
+      if (diff !== 0) return diff;
+    } else if (doneSort === "not_done_first") {
+      const diff = Number(a.is_done) - Number(b.is_done);
+      if (diff !== 0) return diff;
+    }
+
+    return dateSort === "newest"
+      ? new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      : new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+  });
+
+  setDisplayTasks(sortedTasks);
+}, [tasks, dateSort, doneSort]);
+
+
+
+
 
   async function createTask(title: string) {
     const { data, error } = await supabaseClient
@@ -132,18 +167,30 @@ export default function TasksPage() {
           <Button variant="danger">Logout</Button>
         </Link>
       </header>
-      <section className="w-full max-w-[1200px]">
+      <section className="w-full max-w-[85%]">
         <div className="w-full bg-gray-800 p-6 mt-10 rounded-xl shadow-md">
           <TaskForm onCreate={createTask} />
         </div>
         <article className="flex flex-row gap-10">
-          <div className="sticky top-4 bg-gray-800 mt-10 p-4 rounded-xl shadow-md self-start">
-            <ProgressBar tasks={tasks} />
+          <div className="sticky top-4 flex flex-col gap-6 self-start mt-10">
+            <div className="bg-gray-800 p-4 rounded-xl shadow-md w-24 mx-auto">
+              <ProgressBar tasks={tasks} />
+            </div>
+
+            <div className="flex flex-row items-center bg-gray-800 p-4 rounded-xl shadow-md">
+              <TaskSort
+                dateSort={dateSort}
+                doneSort={doneSort}
+                onDateSortChange={setDateSort}
+                onDoneSortChange={setDoneSort}
+              />
+            </div>
           </div>
+        
           <div className="w-full mt-10">
             <div className="bg-gray-800 p-6 rounded-xl shadow-md flex flex-col gap-4">
               <TaskList
-                tasks={tasks}
+                tasks={displayTasks}
                 onToggleDone={toggleDone}
                 onDelete={deleteTask}
                 onUpdate={updateTask}
