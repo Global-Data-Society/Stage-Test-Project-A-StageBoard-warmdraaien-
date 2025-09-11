@@ -42,6 +42,8 @@ export default function TaskModalForm({ onCreate }: TaskModalFormProps) {
                 value={title}
                 onChange={(event) => setTitle(event.target.value)}
                 autoFocus
+                maxLength={120}
+                minLength={3}
               />
             </form>
           </ModalBody>

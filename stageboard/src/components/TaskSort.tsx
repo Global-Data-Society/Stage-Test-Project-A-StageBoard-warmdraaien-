@@ -14,7 +14,7 @@ export default function TaskSort({
   onDoneSortChange,
 }: TaskSortProps) {
   return (
-    <div className="flex flex-col items-center w-full gap-2">
+    <div className="flex items-center w-full gap-2">
       <select
         value={dateSort}
         onChange={(event) => onDateSortChange(event.target.value as "oldest" | "newest")}

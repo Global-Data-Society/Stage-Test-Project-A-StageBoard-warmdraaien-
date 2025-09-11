@@ -9,6 +9,7 @@ import Button from "@/components/Button";
 import ProgressBar from "@/components/TaskProgressBar";
 import TaskSort from "@/components/TaskSort";
 import TaskModalForm from "@/components/TaskModal";
+import ErrorModal from "@/components/ErrorModal";
 
 type Task = {
   id: string;
@@ -138,20 +139,6 @@ useEffect(() => {
 
   const loading = userLoading || tasksLoading;
 
-  if (error) {
-    return (
-      <main className="flex items-center justify-center h-screen bg-gray-900">
-        <section className="flex flex-col w-full max-w-lg bg-gray-800 p-6 mt-10 rounded-xl shadow-md gap-8">
-          <p className="text-lg text-center font-medium text-red-500">Error: {error}</p>
-          <div className="flex flex-col gap-4 items-center">
-            <Button variant="negative" onClick={() => {router.push("/logout");}}>Back to Login</Button>
-            <Button variant="positive" onClick={() => {location.reload();}}>Refresh</Button>
-          </div>
-        </section>
-      </main>
-    );
-  }
-
   if (loading) return ( 
     <main className="flex items-center justify-center h-screen bg-gray-900">
       <p className="text-lg font-medium">Loading tasks...</p>
@@ -161,6 +148,7 @@ useEffect(() => {
 
   return (
     <main className="flex flex-col items-center min-h-screen bg-gray-900">
+      {error && <ErrorModal message={error} />}
       <header className="w-full bg-gray-800 shadow-md py-4 px-6 flex justify-between items-center">
         <h1 className="text-2xl font-bold text-blue-500">Tasks</h1>
         <Link href="/logout">
@@ -168,13 +156,9 @@ useEffect(() => {
         </Link>
       </header>
       <section className="w-full max-w-[85%]">
-        <article className="flex flex-row gap-10">
-          <div className="sticky top-4 flex flex-col gap-6 self-start mt-10">
-            <div className="bg-gray-800 p-4 rounded-xl shadow-md w-24 mx-auto">
-              <ProgressBar tasks={tasks} />
-            </div>
+        <article className="flex flex-row items-center justify-self-end mt-4 gap-4">
 
-            <div className="flex flex-row items-center bg-gray-800 p-4 rounded-xl shadow-md">
+            <div className=" bg-gray-800 p-4 rounded-xl shadow-md">
               <TaskSort
                 dateSort={dateSort}
                 doneSort={doneSort}
@@ -185,10 +169,20 @@ useEffect(() => {
             <div className="self-center bg-gray-800 p-4 rounded-xl shadow-md">
               <TaskModalForm onCreate={createTask} />
             </div>
+
+        </article>
+        <article className="flex flex-row gap-10">
+          <div className="sticky top-4 self-start mt-4">
+
+            <div className="bg-gray-800 p-4 rounded-xl shadow-md w-24 mx-auto">
+              <ProgressBar tasks={tasks} />
+            </div>
+
           </div>
         
-          <div className="w-full mt-10">
-            <div className="bg-gray-800 p-6 rounded-xl shadow-md flex flex-col gap-4">
+          <div className="w-full mt-4">
+            
+            <div className="bg-gray-800 p-6 rounded-xl shadow-md">
               <TaskList
                 tasks={displayTasks}
                 onToggleDone={toggleDone}
@@ -196,6 +190,7 @@ useEffect(() => {
                 onUpdate={updateTask}
               />
             </div>
+
           </div>
         </article>
       </section>

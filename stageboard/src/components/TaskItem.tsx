@@ -24,7 +24,7 @@ export default function TaskItem({
   const [editTitle, setEditTitle] = useState(task.title);
 
   return (
-    <li className="group flex justify-between items-center p-3 rounded-md bg-gray-700 shadow-md">
+    <li className="group flex justify-between items-center p-3 rounded-md bg-gray-700 shadow-md hover transition hover:scale-101">
       <div className="flex items-center gap-3">
         <button
           className={`w-8 h-8 rounded-sm border-2 flex-shrink-0 cursor-pointer transition-all duration-200 ease-in-out hover:border-blue-400 border-gray-500
