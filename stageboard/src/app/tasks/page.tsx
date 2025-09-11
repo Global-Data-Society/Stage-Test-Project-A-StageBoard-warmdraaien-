@@ -4,11 +4,11 @@ import React, { useState, useEffect } from "react";
 import { supabaseClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import TaskForm from "@/components/TaskForm";
 import TaskList from "@/components/TaskList";
 import Button from "@/components/Button";
 import ProgressBar from "@/components/TaskProgressBar";
 import TaskSort from "@/components/TaskSort";
+import TaskModalForm from "@/components/TaskModal";
 
 type Task = {
   id: string;
@@ -168,9 +168,6 @@ useEffect(() => {
         </Link>
       </header>
       <section className="w-full max-w-[85%]">
-        <div className="w-full bg-gray-800 p-6 mt-10 rounded-xl shadow-md">
-          <TaskForm onCreate={createTask} />
-        </div>
         <article className="flex flex-row gap-10">
           <div className="sticky top-4 flex flex-col gap-6 self-start mt-10">
             <div className="bg-gray-800 p-4 rounded-xl shadow-md w-24 mx-auto">
@@ -184,6 +181,9 @@ useEffect(() => {
                 onDateSortChange={setDateSort}
                 onDoneSortChange={setDoneSort}
               />
+            </div>
+            <div className="self-center bg-gray-800 p-4 rounded-xl shadow-md">
+              <TaskModalForm onCreate={createTask} />
             </div>
           </div>
         
